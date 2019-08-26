@@ -30,7 +30,7 @@ const styles = {
   }
 };
 
-export default ({ id, title, body }) => (
+export default React.memo(({ id, title, body }) => (
   <Card style={styles.card}>
     <CardContent style={styles.cardContent}>
       <Typography variant="h5">{title}</Typography>
@@ -56,4 +56,4 @@ export default ({ id, title, body }) => (
       </Button>
     </CardActions>
   </Card>
-);
+));
