@@ -1,11 +1,17 @@
 import React from 'react';
 
+import Card from './Card';
+
 import data from './fake_data';
 
-console.table(data);
-
 function App() {
-  return <div>test</div>;
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      {data.map(d => (
+        <Card key={d.id} {...d} />
+      ))}
+    </div>
+  );
 }
 
 export default App;
