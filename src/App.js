@@ -1,42 +1,76 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 
+import { FormControlLabel, Switch, Button } from '@material-ui/core';
 import Card from './Card';
+import CustomProfiler from './CustomProfiler';
 
-import initialData from './fake_data';
+import {
+  AppContextProvider,
+  useAppContext,
+  useAppDispatch,
+  reverse
+} from './app-context';
 
-function App() {
-  const [data, dispatch] = useReducer(reducer, initialData);
+const App = () => {
+  return (
+    // <CustomProfiler id="main" showBaseDuration>
+    <AppContextProvider>
+      <div style={styles.container}>
+        <Controls />
+        <Cards />
+      </div>
+    </AppContextProvider>
+    // </CustomProfiler>
+  );
+};
+
+const Controls = () => {
+  const dispatch = useAppDispatch();
 
   return (
-    <React.Profiler
-      id="main"
-      onRender={(_, phase) => {
-        console.count(`render ${phase}`);
-      }}
-    >
-      <button onClick={() => dispatch({ type: REVERSE })}>
-        This is a button
-      </button>
+    <div style={styles.controlsContainer}>
+      <FormControlLabel
+        control={
+          <Switch
+            onChange={() => dispatch(reverse())}
+            value="reverse"
+            color="primary"
+            inputProps={{ 'aria-label': 'reverse switch' }}
+          />
+        }
+        label="Reverse"
+      />
 
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        {data.map(d => (
-          <Card key={d.id} {...d} />
-        ))}
-      </div>
-    </React.Profiler>
+      <Button variant="contained" color="primary">
+        Reset
+      </Button>
+    </div>
   );
-}
+};
 
-const REVERSE = 'REVERSE';
+const Cards = () => {
+  const data = useAppContext();
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case REVERSE: {
-      const copy = [...state].reverse();
-      return copy;
-    }
-    default:
-      return state;
+  return (
+    <div style={styles.cardContainer}>
+      {data.map(d => (
+        <Card key={d.id} {...d} />
+      ))}
+    </div>
+  );
+};
+
+const styles = {
+  container: {
+    margin: '1rem'
+  },
+  controlsContainer: {
+    marginLeft: '1rem'
+  },
+  cardContainer: {
+    display: 'flex',
+    flexWrap: 'wrap'
   }
 };
+
 export default App;

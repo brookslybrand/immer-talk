@@ -5,61 +5,34 @@ import {
   FormControl,
   FormGroup,
   FormControlLabel,
-  FormHelperText,
   Checkbox
 } from '@material-ui/core';
 
-export default function CheckboxesGroup() {
-  const [state, setState] = React.useState({
-    gilad: true,
-    jason: false,
-    antoine: false
-  });
+import { useAppDispatch, setOption } from './app-context';
 
-  const handleChange = name => event => {
-    setState({ ...state, [name]: event.target.checked });
-  };
-
-  const { gilad, jason, antoine } = state;
+export default ({ id, options }) => {
+  const dispatch = useAppDispatch();
 
   return (
     <div style={{ display: 'flex' }}>
       <FormControl component="fieldset" style={{ margin: '3rem' }}>
         <FormLabel component="legend">What are you using?</FormLabel>
         <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={gilad}
-                onChange={handleChange('gilad')}
-                value="gilad"
-              />
-            }
-            label="Gilad Gray"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={jason}
-                onChange={handleChange('jason')}
-                value="jason"
-              />
-            }
-            label="Jason Killian"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={antoine}
-                onChange={handleChange('antoine')}
-                value="antoine"
-              />
-            }
-            label="Antoine Llorca"
-          />
+          {Object.entries(options).map(([key, { label, value }]) => (
+            <FormControlLabel
+              key={key}
+              control={
+                <Checkbox
+                  checked={value}
+                  onChange={e => dispatch(setOption(id)(e.target.value))}
+                  value={key}
+                />
+              }
+              label={label}
+            />
+          ))}
         </FormGroup>
-        <FormHelperText>Be careful</FormHelperText>
       </FormControl>
     </div>
   );
-}
+};
