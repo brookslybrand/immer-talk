@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useContext } from 'react';
 
-import initialData, { options } from './fake_data';
+import initialData, { getInitialOptions } from './fake_data';
 
 const AppContext = createContext();
 const AppDispatch = createContext();
@@ -54,10 +54,7 @@ const reducer = (state, action) => {
       return copy;
     }
     case RESET_OPTIONS: {
-      return state.map(item => ({
-        ...item,
-        options: { ...options }
-      }));
+      return state.map(item => ({ ...item, options: getInitialOptions() }));
     }
     default:
       return state;
