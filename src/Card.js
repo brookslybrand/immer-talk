@@ -13,35 +13,35 @@ import Checklist from './Checklist';
 import CustomProfiler from './CustomProfiler';
 
 export default React.memo(({ id, title, body, options }) => (
-  // <CustomProfiler id={title}>
-  <Card style={styles.card}>
-    <CardContent style={styles.cardContent}>
-      <Typography variant="h5">{title}</Typography>
+  <CustomProfiler id={title}>
+    <Card style={styles.card}>
+      <CardContent style={styles.cardContent}>
+        <Typography variant="h5">{title}</Typography>
 
-      <Typography variant="body2" component="p" style={styles.cardElement}>
-        {body}
-      </Typography>
+        <Typography variant="body2" component="p" style={styles.cardElement}>
+          {body}
+        </Typography>
 
-      <QRCode
-        bgColor="#FFFFFF"
-        fgColor="#000000"
-        level="Q"
-        style={{ ...styles.cardElement, ...styles.qrCode }}
-        value={id}
-      />
+        <QRCode
+          bgColor="#FFFFFF"
+          fgColor="#000000"
+          level="Q"
+          style={{ ...styles.cardElement, ...styles.qrCode }}
+          value={id}
+        />
 
-      <Checklist id={id} options={options} />
-    </CardContent>
-    <CardActions>
-      <Button
-        size="small"
-        href="https://baconipsum.com/?paras=5&type=all-meat&start-with-lorem=1"
-      >
-        Learn More
-      </Button>
-    </CardActions>
-  </Card>
-  // </CustomProfiler>
+        <Checklist id={id} options={options} />
+      </CardContent>
+      <CardActions>
+        <Button
+          size="small"
+          href="https://baconipsum.com/?paras=5&type=all-meat&start-with-lorem=1"
+        >
+          Learn More
+        </Button>
+      </CardActions>
+    </Card>
+  </CustomProfiler>
 ));
 
 const styles = {

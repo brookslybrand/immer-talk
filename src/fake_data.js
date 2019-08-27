@@ -21,5 +21,5 @@ export default Array.from({ length: N }).map((_, i) => ({
   id: uuid(),
   title: `Title ${i}`,
   body: bacon[i % 5],
-  options
+  options: { ...options }
 }));

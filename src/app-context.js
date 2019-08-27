@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useContext } from 'react';
 
-import initialData from './fake_data';
+import initialData, { options } from './fake_data';
 
 const AppContext = createContext();
 const AppDispatch = createContext();
@@ -31,6 +31,7 @@ const useAppDispatch = () => {
 
 const REVERSE = 'REVERSE';
 const SET_OPTION = 'SET_OPTION';
+const RESET_OPTIONS = 'RESET_OPTIONS';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -52,6 +53,12 @@ const reducer = (state, action) => {
       copy.splice(itemIndex, 1, { ...item, options: newOptions });
       return copy;
     }
+    case RESET_OPTIONS: {
+      return state.map(item => ({
+        ...item,
+        options: { ...options }
+      }));
+    }
     default:
       return state;
   }
@@ -61,10 +68,13 @@ const reverse = () => ({ type: REVERSE });
 
 const setOption = id => option => ({ type: SET_OPTION, id, option });
 
+const resetOptions = () => ({ type: RESET_OPTIONS });
+
 export {
   AppContextProvider,
   useAppContext,
   useAppDispatch,
   reverse,
-  setOption
+  setOption,
+  resetOptions
 };

@@ -23,6 +23,9 @@ export default ({ id, options }) => {
               key={key}
               control={
                 <Checkbox
+                  disableRipple
+                  disableFocusRipple
+                  disableTouchRipple
                   checked={value}
                   onChange={e => dispatch(setOption(id)(e.target.value))}
                   value={key}

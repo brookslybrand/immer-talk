@@ -8,7 +8,8 @@ import {
   AppContextProvider,
   useAppContext,
   useAppDispatch,
-  reverse
+  reverse,
+  resetOptions
 } from './app-context';
 
 const App = () => {
@@ -41,8 +42,12 @@ const Controls = () => {
         label="Reverse"
       />
 
-      <Button variant="contained" color="primary">
-        Reset
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => dispatch(resetOptions())}
+      >
+        Reset Preferences
       </Button>
     </div>
   );
