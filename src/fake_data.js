@@ -11,15 +11,21 @@ const bacon = [
   'Salami alcatra buffalo frankfurter filet mignon jerky meatloaf beef ribs doner cow andouille. Jowl beef short loin ham. Tongue corned beef tenderloin, ham hock prosciutto turkey sirloin doner fatback beef porchetta boudin.'
 ];
 
-export const getInitialOptions = () => ({
+const getProgrammingOptions = () => ({
   react: { label: 'React', value: false },
   vue: { label: 'Vue.js', value: false },
   jquery: { label: 'jQuery', value: false }
+});
+
+const getAnimalOptions = () => ({
+  react: { label: 'Lions', value: false },
+  vue: { label: 'Tigers', value: false },
+  jquery: { label: 'Bears', value: false }
 });
 
 export default Array.from({ length: N }).map((_, i) => ({
   id: uuid(),
   title: `Title ${i}`,
   body: bacon[i % 5],
-  options: getInitialOptions()
+  options: i % 2 ? getProgrammingOptions() : getAnimalOptions()
 }));

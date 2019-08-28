@@ -1,5 +1,4 @@
 import React, { createContext, useReducer, useContext } from 'react';
-import produce from 'immer';
 
 import initialData from './fake_data';
 
@@ -34,27 +33,42 @@ const REVERSE = 'REVERSE';
 const SET_OPTION = 'SET_OPTION';
 const RESET_OPTIONS = 'RESET_OPTIONS';
 
-const reducer = produce((state, action) => {
-  // eslint-disable-next-line default-case
+const reducer = (state, action) => {
   switch (action.type) {
     case REVERSE: {
-      state.reverse();
-      break;
+      const copy = [...state].reverse();
+      return copy;
     }
     case SET_OPTION: {
       const { id, option } = action;
-      const itemOptions = state.find(item => item.id === id).options;
-      itemOptions[option].value = !itemOptions[option].value;
-      break;
+      const itemIndex = state.findIndex(item => item.id === id);
+      const item = state[itemIndex];
+      const oldOptions = item.options;
+      const oldOption = oldOptions[option];
+      const newOptions = {
+        ...oldOptions,
+        [option]: { ...oldOption, value: !oldOption.value }
+      };
+      const copy = [...state];
+      copy.splice(itemIndex, 1, { ...item, options: newOptions });
+      return copy;
     }
     case RESET_OPTIONS: {
-      state.forEach(({ options }) =>
-        Object.values(options).map(option => (option.value = false))
-      );
-      break;
+      return state.map(item => {
+        const options = Object.keys(item.options).reduce(
+          (options, key) => ({
+            ...options,
+            [key]: { label: item.options[key].label, value: false }
+          }),
+          {}
+        );
+        return { ...item, options };
+      });
     }
+    default:
+      return state;
   }
-});
+};
 
 const reverse = () => ({ type: REVERSE });
 
