@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FormControlLabel, Switch, Button } from '@material-ui/core';
 import Card from './Card';
-import CustomProfiler from './CustomProfiler';
+// import CustomProfiler from './CustomProfiler';
 
 import {
   AppContextProvider,
