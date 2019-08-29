@@ -16,7 +16,7 @@ export default ({ id, options }) => {
   return (
     <div style={{ display: 'flex' }}>
       <FormControl component="fieldset" style={{ margin: '3rem' }}>
-        <FormLabel component="legend">What are you using?</FormLabel>
+        <FormLabel component="legend">Which ones do you like?</FormLabel>
         <FormGroup>
           {Object.entries(options).map(([key, { label, value }]) => (
             <FormControlLabel
