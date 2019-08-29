@@ -33,21 +33,27 @@ const REVERSE = 'REVERSE';
 const SET_OPTION = 'SET_OPTION';
 const RESET_OPTIONS = 'RESET_OPTIONS';
 
-const reducer = (state, action) => {
+const reducer = produce((state, action) => {
+  // eslint-disable-next-line default-case
   switch (action.type) {
     case REVERSE: {
-      return state;
+      state.reverse();
+      break;
     }
     case SET_OPTION: {
-      return state;
+      const { id, option } = action;
+      const itemOptions = state.find(item => item.id === id).options;
+      itemOptions[option].value = !itemOptions[option].value;
+      break;
     }
     case RESET_OPTIONS: {
-      return state;
+      state.forEach(({ options }) =>
+        Object.values(options).map(option => (option.value = false))
+      );
+      break;
     }
-    default:
-      return state;
   }
-};
+});
 
 const reverse = () => ({ type: REVERSE });
 
