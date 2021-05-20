@@ -2,7 +2,9 @@
 
 ## Stop worrying and start mutating your state (Brooks Lybrand)
 
-[Demo](https://start-mutating.netlify.com/)
+[Watch the talk](https://www.youtube.com/watch?v=e4wYtIo-DTE&t=4284s&ab_channel=AustinTechLive)
+
+[Play with the Demo](https://start-mutating.netlify.com/)
 
 Predictability, immutability, single source of truth — these are all concepts
 that are absolutely essential to understand in order to have reasonable,
